@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tell Tale Heart </title>
+<style> 
+	body {
+	background: black; 
+	overflow: hidden; 
+	}
+	
+	/* This section is for the title screen */ 
+	#StartMenu {
+		display: none; 
+	}
+	#Background { 
+	height: 110%; 
+	left: 0%; 
+	object-fit: cover; 
+	position: absolute; 
+	top: 0%; 
+ 	width: 110%; 
+	}
+	
+	#Logo { 
+	animation: LogoAnimate 30s infinite; 
+	height: 150px; 
+	left: 50%; 
+	position: absolute; 
+	top: calc(30%); 
+	transform: translateX(-50%); 
+	width: 90%; 
+	filter: none; 
+	}
+	
+	#Loremessages { 
+	color: white;
+	display: none; 
+	font-size: 5em; 
+	font-weight: bold; 
+	left: 50%; 
+	top: calc(0% + 220px); 
+	position: absolute;
+	text-align: center; 
+	transform: translate(-50%, -50%); 
+	z-index: 3; 
+	}
+	
+	#StartButton { 
+	background: #31D3FF;
+	border-color: black; 
+	border-radius: 10px; 
+	color: white; 
+	cursor: pointer; 
+	font-weight: bold; 
+	left: 50%; 
+	position: absolute; 
+	top: calc(70%); 
+	transform: translateX(-50%);
+	width: 200px; 
+	height: 50px; 
+	transition-duration: 5s;
+	} 
+	
+	#StartButton:hover {  
+	background: Black; 
+	transition-duration: 5s;
+	}
+	
+	#BlackBackgroundOne { 
+	position: absolute; 
+	background: black; 
+	width: 50%; 
+	left: -50%; 
+	height: 100%; 
+	top: 0%; 
+	z-index: 2; 
+	}
+	#BlackBackgroundTwo { 
+	position: absolute; 
+	background: black; 
+	width: 50%; 
+	right: -50%; 
+	height: 100%; 
+	top: 0%;
+	z-index: 2; 
+	}
+	@keyframes LogoAnimate {
+		0% {transform: translateX(-50%) rotate(0deg)}
+		25% {transform: translateX(-50%) rotate(-5deg)}
+	 	50% {transform: translateX(-50%) rotate(5deg)}
+		75% {transform: translateX(-50%) rotate(-5deg)}
+		100% {transform: translateX(-50%) rotate(0deg)}
+		
+	}
+	@keyframes Rotating { 
+		0% {transform: translateX(-50%) rotateY(-360deg); }
+		100% {transform: translateX(-50%) rotateY(0deg); }
+	}
+	
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+	
+
+
+<body>
+	<!-- This section is for the title screen !--> 
+	<div id="BlackBackgroundOne"> </div>
+	<div id="BlackBackgroundTwo"> </div>
+	<p id="Loremessages"> It's Midnight </p> 
+	<div id="StartMenu">
+	<img id="Background" src="Background.jpg" width="0px" height="0px" alt="error"> 
+ 	<img id="Logo" src="Logo.png" width="0px" height="0px" alt="error"> 
+	<button id="StartButton" type="button"> 
+	Start
+	</button>
+		
+		
+	<audio id="Music" src="Music.mp3" type="audio/mpeg"> </audio>
+	<audio id="Screams" src="Screams.mp3" type="audio/mpeg"> </audio>
+	</div>
+
+<script>  
+let Music = document.getElementById("Music"); 
+let Screams = document.getElementById("Screams"); 
+let doc = document.documentElement; 
+let lore = document.getElementById("Loremessages"); 
+$(document).ready(() => {
+initmenu(); 
+}); 
+	
+function initmenu() { 
+$("#StartMenu").fadeIn(3000); 
+BackgroundAnimate();
+}
+function BackgroundAnimate() {
+$("#Background").animate({left: -10 + "%", top: -10 + "%"}, 10000);
+$("#Background").animate({left: 0 + "%", top: 0 + "%"}, 10000);
+
+setTimeout(BackgroundAnimate, 20001); 
+}
+	
+$("#StartButton").click(() => { StartGame(); }); 
+	
+function StartGame() {
+Screams.play(); 
+Music.play(); 
+doc.requestFullscreen();
+doc.style.cursor = "none";
+document.getElementById("StartButton").style.cursor = "none"; 
+$("#Logo").fadeOut(3000);
+$("#StartButton").fadeOut(3000);
+document.getElementById("Logo").style.filter = "invert(100%)"; 
+document.getElementById("Background").style.filter = "invert(100%)"; 
+document.getElementById("StartButton").style.filter = "invert(100%)";
+document.getElementById("StartButton").style.background = "black"; 
+document.getElementById("StartButton").style.animation = "Rotating 3s";
+document.getElementById("StartButton").style.transitionDuration = "0s";
+document.getElementById("Logo").style.animation = "Rotating 3s";
+$("#BlackBackgroundOne").animate({left: "0%"}, 10000); 
+$("#BlackBackgroundTwo").animate({right: "0%"}, 10000);
+setTimeout(() => { lore.innerHTML = "It's Midnight"; $("#Loremessages").fadeIn(3000); }, 10000); 
+setTimeout(() => { $("#Loremessages").fadeOut(3000); }, 17000); 
+setTimeout(() => { lore.innerHTML = "Did you hear those screams?"; $("#Loremessages").fadeIn(3000); }, 20000); 
+setTimeout(() => { $("#Loremessages").fadeOut(3000); }, 27000); 
+	
+setTimeout(init, 30000); 
+}
+
+function init() { 
+document.getElementById("Background").style.display = "none"; 
+document.body.style.background = "white"; 
+$("#BlackBackgroundOne").animate({left: "-15%"}, 5000); 
+$("#BlackBackgroundTwo").animate({right: "-15%"}, 5000);
+}
+	
+	
+	
+</script>
+</body>
+</html>
