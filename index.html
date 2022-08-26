@@ -1,0 +1,933 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <link rel="icon" type="image/x-icon" href="tornado.png">
+<title>Tell Tale Heart </title>
+<style> 
+	body {
+	background: black; 
+	overflow: hidden; 
+	}
+	
+	/* This section is for the title screen */ 
+	#StartMenu {
+		display: none; 
+	}
+	#Background { 
+	height: 110%; 
+	left: 0%; 
+	object-fit: cover; 
+	position: absolute; 
+	top: 0%; 
+ 	width: 110%; 
+	}
+	
+	#Logo { 
+	animation: LogoAnimate 30s infinite; 
+	height: 150px; 
+	left: 50%; 
+	position: absolute; 
+	top: calc(30%); 
+	transform: translateX(-50%); 
+	width: 90%; 
+	filter: none; 
+	}
+	
+	#Loremessages { 
+	color: white;
+	display: none; 
+	font-size: 5em; 
+	font-weight: bold; 
+	left: 50%; 
+	top: calc(0% + 220px); 
+	position: absolute;
+	text-align: center; 
+	transform: translate(-50%, -50%); 
+	z-index: 3; 
+	}
+	
+	#StartButton { 
+	background: #31D3FF;
+	border-color: black; 
+	border-radius: 10px; 
+	color: white; 
+	cursor: pointer; 
+	font-weight: bold; 
+	left: 50%; 
+	position: absolute; 
+	top: calc(70%); 
+	transform: translateX(-50%);
+	width: 200px; 
+	height: 50px; 
+	transition-duration: 5s;
+	} 
+	
+	#StartButton:hover {  
+	background: Black; 
+	transition-duration: 5s;
+	}
+	
+	#BlackBackgroundOne { 
+	position: absolute; 
+	background: black; 
+	width: 50%; 
+	left: -50%; 
+	height: 100%; 
+	top: 0%; 
+	z-index: 2; 
+	}
+	#BlackBackgroundTwo { 
+	position: absolute; 
+	background: black; 
+	width: 50%; 
+	right: -50%; 
+	height: 100%; 
+	top: 0%;
+	z-index: 2; 
+	}
+	@keyframes LogoAnimate {
+		0% {transform: translateX(-50%) rotate(0deg)}
+		25% {transform: translateX(-50%) rotate(-5deg)}
+	 	50% {transform: translateX(-50%) rotate(5deg)}
+		75% {transform: translateX(-50%) rotate(-5deg)}
+		100% {transform: translateX(-50%) rotate(0deg)}
+		
+	}
+	@keyframes Rotating { 
+		0% {transform: translateX(-50%) rotateY(-360deg); }
+		100% {transform: translateX(-50%) rotateY(0deg); }
+	}
+	
+	/* Iphone Emulator */ 
+	
+	#Iphone { 
+	display: none; 
+	}
+	#Top { 
+	border-bottom: solid gray; 
+	left: 50%; 
+	position: absolute; 
+	top: calc(0%); 
+	height: 35px; 
+	width: 30%; 
+	transform: translateX(-50%); 
+	z-index: 3;
+	}
+	
+	#Wifi {
+	height: 27px;
+	left: 1%; 
+	position: absolute; 
+	top: 50%; 
+	transform: translate(-1%, -50%); 
+	width: 35px; 
+	z-index: 3; 
+	}
+	
+	#Time { 
+	color: black; 
+	font-size: 2em; 
+	font-weight: bold;
+	left: 50%;
+	text-align: center;
+	top: -32px; 
+	position: absolute; 
+	transform: translateX(-50%); 
+	}
+	
+	#Battery {
+	height: 100%; 
+	position: absolute; 
+	right: -2%; 
+	top: 50%; 
+	transform: translateY(-50%) scaleX(1); 
+	width: 10%; 
+	}
+	
+	#Bottom { 
+	bottom: 0%;
+	border-top: solid gray; 
+	height: 50px;
+	left: 50%; 
+	position: absolute;
+	transform: translateX(-50%); 
+	width: 30%;
+	z-index: 3;
+	}
+	
+	#TextInput {
+	border: none; 
+    border-radius: 6px;
+	display: none; 
+	height: 25px; 
+	left: 50%; 
+	position: absolute; 
+	text-align: center;
+	top: 50%; 
+	transform: translate(-50%, -50%); 
+	outline: solid black; 
+	width: 90%;
+	}
+	
+	#AnswerA { 
+	background: #E8E8E8; 
+	border-radius: 6px;
+	cursor: pointer; 
+	display: none; 
+	height: 35px; 
+	left: 0%; 
+	position: absolute; 
+	text-align: center;
+	top: 50%; 
+	transform: translateY(-50%); 
+	outline: solid black; 
+	width: 49%;
+	font-size: 16px;
+	font-weight: bold; 
+	}
+	
+	#AnswerB { 
+	background: #E8E8E8; 
+	border-radius: 6px;
+	cursor: pointer; 
+	display: none; 
+	height: 35px; 
+	right: 0%; 
+	position: absolute; 
+	text-align: center;
+	top: 50%; 
+	transform: translateY(-50%); 
+	outline: solid black; 
+	width: 49%;
+	font-size: 14px;
+	font-weight: bold; 
+	}
+	
+	/* Text Messages */ 
+	
+	#PMO { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 30px; 
+	top: 100%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMOB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(100% + 30px);
+	width: 10px;
+	z-index: 3; 
+	right: 35%; 
+	}
+	
+	#JMO { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 120%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#JMOB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: 120%;
+	width: 10px;
+	left: 35%; 
+	z-index: 3; 
+	}
+	
+	#PMT {
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 120px; 
+	top: 136%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;	
+	}
+	
+	#PMTB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: 136%; 
+	width: 10px;
+	z-index: 3; 
+	right: 35%; 
+	}
+	
+	#JMT { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 157%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#JMTB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: 157%;
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMTH { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 168%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMTHB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: 168%;
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#JMTH { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 113%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#JMTHB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: 180%;
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMF { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 120px; 
+	top: 130%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMFB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: 168%;
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#JMF { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 152%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#JMFB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(152% + 90px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMFI { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 169%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMFIB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(169% + 60px);
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#JMFI { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 180%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#JMFIB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(180% + 60px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	/* 911 Messages */ 
+	
+	#CMO { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 113%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMOB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(113% + 60px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMS { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 124%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMSB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(124% + 90px);
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#CMT { 
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 113%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMTB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(130% + 60px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMSE { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 152%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMSEB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(152% + 60px);
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#CMTH {
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 163%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMTHB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(163% + 60px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PME { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 175%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMEB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(175% + 90px);
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#CMF {
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 60px; 
+	top: 113%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMFB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(113% + 60px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#CMFI {
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 120px; 
+	top: 127%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMFIB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(127% + 120px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMN { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 30px; 
+	top: 149%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMNB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(149% + 30px);
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#CMS {
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 156%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMSB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(156% + 90px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+	#PMTE { 
+	background: #007AFF; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	color: white; 
+	font-size: 1.5em;
+	font-weight: bold; 
+	right: 35%;
+	width: 15%; 
+	height: 90px; 
+	top: 173%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#PMTEB { 
+	background: #007AFF; 
+	border-bottom-left-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(173% + 90px);
+	width: 10px;
+	right: 35%;
+	z-index: 3; 
+	}
+	
+	#CMSE {
+	background: #E8E8E8; 
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	font-size: 1.5em;
+	font-weight: bold; 
+	left: 35%;
+	width: 15%; 
+	height: 150px; 
+	top: 113%; 
+	position: absolute; 
+	z-index: 3; 
+    text-align: center;
+	}
+	
+	#CMSEB { 
+	background: #E8E8E8; 
+	border-bottom-right-radius: 10px;
+	height: 10px; 
+	position: absolute;
+	top: calc(113% + 150px);
+	width: 10px;
+	left: 35%;
+	z-index: 3; 
+	}
+	
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+	
+
+
+<body>
+	<!-- This section is for the title screen !--> 
+	<div id="BlackBackgroundOne"> </div>
+	<div id="BlackBackgroundTwo"> </div>
+	<p id="Loremessages"> It's Midnight </p> 
+	<div id="StartMenu">
+	<img id="Background" src="Background.jpg" width="0px" height="0px" alt="error"> 
+ 	<img id="Logo" src="Logo.png" width="0px" height="0px" alt="error"> 
+	<button id="StartButton" type="button"> 
+	Start
+	</button>
+		
+		
+	<audio id="Music" src="Music.mp3" type="audio/mpeg" loop> </audio>
+	<audio id="Screams" src="Screams.mp3" type="audio/mpeg"> </audio>
+		
+	</div>
+	<!-- Iphone Emulator !--> 
+	<div id="Iphone">
+		<div id="Top"> 
+		<img id="Wifi" src="Wifi.png" width="0px" height="0px" alt="error"> 
+		<div id="Time"> <p> 12:02AM <br> Jonathon </p> </div>
+		<img id="Battery" src="Battery.png" width="0px" height="0px" alt="error"> 
+		</div>
+		
+		<div id="Bottom"> 
+			<input id="TextInput" type="text" onkeydown="entertext()" placeholder="Text Message" maxlength="8">
+			<div id="AnswerA" onClick="TextAdvanceA()"> I think I heard something next door </div>
+		    <div id="AnswerB" onClick="TextAdvanceB()">  I swear heard some commotion and a scream next door </div>
+		</div>
+		
+		<div id="TextMessages"> 
+			
+		<div id="PMO"> dude </div>
+		<div id="PMOB"> </div>
+		
+		<div id="JMO"> what? it's late I want to sleep make it quick </div>
+		<div id="JMOB"> </div>
+			
+		<div id="PMT"> </div>
+		<div id="PMTB"> </div>
+			
+		<div id="JMT"> ya that’s not normal </div>
+		<div id="JMTB"> </div>
+			
+		<div id="PMTH"> </div>
+		<div id="PMTHB"> </div>
+			
+		<div id="JMTH"> </div>
+		<div id="JMTHB"> </div>
+			
+		<div id="PMF"> </div>
+		<div id="PMFB"> </div>
+		
+		<div id="JMF"> </div>
+		<div id="JMFB"> </div>
+			
+		<div id="PMFI"> Nah I'm gonna text them </div>
+		<div id="PMFIB"> </div>
+		
+		<div id="JMFI"> ok dude please don’t die </div>
+		<div id="JMFIB"> </div>
+			
+		<div id="CMO"> 911 What is your emergencey? </div>
+		<div id="CMOB"> </div>
+			
+		<div id="PMS"> </div>
+		<div id="PMSB"> </div>
+		
+		<div id="CMT"> Ok, what is your address? </div>
+		<div id="CMTB"> </div>
+			
+		<div id="PMSE"> It is 516 High St. Apt #517 </div>
+		<div id="PMSEB"> </div>
+			
+		<div id="CMTH"> Alright, what exactly happened? </div>
+		<div id="CMTHB"> </div>
+			
+		<div id="PME"> </div>
+		<div id="PMEB"> </div>
+			
+		<div id="CMF"> And what is your name? </div>
+		<div id="CMFB"> </div>
+			
+		<div id="CMFI"> And what is your name? </div>
+		<div id="CMFIB"> </div>
+			
+		<div id="PMN"> </div>
+		<div id="PMNB"> </div>
+			
+		<div id="CMS"> Can I get a description of your neighbor? </div>
+		<div id="CMSB"> </div>
+			
+		<div id="PMTE"> </div>
+		<div id="PMTEB"> </div>
+			
+		<div id="CMSE">  </div>
+		<div id="CMSEB"> </div>
+			
+		
+		</div> 
+	</div> 
+
+<script>  
+function _0x3833(){const e=_0x5d6a;var t=[e(289),e(258),e(228),e(319),e(286),e(209),"fadeIn",e(320),e(334),"He is an old man in his 80’s, about 5’6",e(237),e(316),e(262),e(336),"56%",e(254),"#CMT",e(342),e(221),e(333),e(351),e(291),e(251),e(268),e(212),e(287),e(326),"animate",e(246),"white",e(358),"display","1911877QRBGdw",e(322),"true",e(208),e(267),e(233),"#PMFIB",e(298),e(269),e(302),e(252),"75%",e(327),e(290),e(253),"#CMTHB",e(339),"Rotating 3s",e(242),"98902KAKALp","#PMSE","black","21rUlBsw","#JMF",e(245),e(282),e(217),e(313),e(225),e(224),"#CMFIB",e(250),"#CMTB",e(335),"460tfTpcv",e(278),e(272),e(263),e(271),e(350),e(211),e(281),"shift","40%",e(293),e(247),e(331),e(214),e(226),e(317),e(259),e(344),"Did you hear those screams?",e(230),e(345),e(232),"#JMTH",e(330),"invert(100%)",e(241),e(295),e(256),e(310),"The muffled shreik paralyzed you",e(210),e(355),e(352),"It was from your 80 year old neighbor...","#JMT",e(213),e(315),e(238),e(284),e(346),e(353),"animation","ready",e(273),e(261),e(347),e(357),e(292),"#PMF",e(341),"Ok, and what is your Neighbors' Apt. Number ",e(274),"#StartButton",e(303),e(338),e(240),e(309),e(356),"Thanks for playing...",e(285),"#PMOB",e(249),e(276),e(337),e(332),e(314),e(215),e(301),"Iphone",e(236),e(231),e(324),e(318),e(354),e(260),e(312),"Hi there I think I heard a scream like 5 minutes ago",e(223),e(220),e(311),"#StartMenu",e(275),e(328),e(306),e(234),e(297),e(229),e(343),"#510",e(299),e(239),"3494870okDByb","#BlackBackgroundOne","PMF",e(227),"Loremessages","bro chill someone probably just fell off the bed "];return(_0x3833=function(){return t})()}!function(){const e=_0x5d6a,t=_0x558c();for(;;)try{if(335321==+parseInt(e(321))*(parseInt(e(323))/2)+-parseInt(e(300))/3*(parseInt(e(280))/4)+parseInt(e(283))/5+parseInt(e(325))/6+parseInt(e(308))/7+parseInt(e(288))/8+-parseInt(e(257))/9)break;t.push(t.shift())}catch(e){t.push(t.shift())}}();const _0x7eece8=_0x4e55;!function(){const t=_0x5d6a,e=_0x4e55,o=_0x3833();for(;;)try{if(235022==+parseInt(e(508))*(parseInt(e(374))/2)+parseInt(e(460))/3*(parseInt(e(447))/4)+-parseInt(e(475))/5*(parseInt(e(463))/6)+parseInt(e(373))/7+-parseInt(e(449))/8*(-parseInt(e(399))/9)+-parseInt(e(375))/10+parseInt(e(413))/11)break;o[t(234)](o[t(277)]())}catch(e){o[t(234)](o.shift())}}();const _0x325fea=_0x3a70;!function(){const t=_0x5d6a,e=_0x4e55,o=_0x3a70,n=_0x42a2();for(;;)try{if(866225==+parseInt(o(402))+parseInt(o(397))/2*(parseInt(o(412))/3)+-parseInt(o(403))/4*(parseInt(o(445))/5)+-parseInt(o(379))/6*(-parseInt(o(366))/7)+parseInt(o(348))/8+parseInt(o(301))/9+parseInt(o(338))/10*(-parseInt(o(437))/11))break;n[e(368)](n[e(455)]())}catch(e){n[t(234)](n.shift())}}();let Music=document[_0x325fea(347)](_0x325fea(410)),Screams=document[_0x7eece8(501)](_0x325fea(429)),doc=document[_0x325fea(385)],lore=document[_0x325fea(347)](_0x7eece8(379)),Playername,WH,TextEntered,Running=!1,TextValue,Stage=0,Score=0,Started=!1;function initmenu(){const e=_0x325fea;$(e(383))[e(372)](3e3),BackgroundAnimate()}function BackgroundAnimate(){const e=_0x7eece8,t=_0x325fea;$(t(298))[t(418)]({left:e(427),top:e(427)},1e4),$(t(298))[t(418)]({left:"0%",top:"0%"},1e4),setTimeout(BackgroundAnimate,20001)}function StartGame(){const e=_0x5d6a,o=_0x7eece8,n=_0x325fea;0==Started&&(Started=!0,Screams[n(408)](),Music[n(408)](),doc[o(467)](),document[o(501)](o(411))[n(329)][o(504)]=n(302),$(o(472))[n(300)](3e3),$(n(444)).fadeOut(3e3),document[n(347)](o(420))[n(329)][n(427)]="invert(100%)",document[n(347)](e(293))[o(404)][n(427)]=e(348),document[n(347)](n(306))[o(404)][n(427)]=n(398),document[n(347)](n(306))[n(329)][n(389)]=o(434),document[n(347)](n(306))[n(329)][n(322)]=n(309),document[n(347)](n(306))[o(404)][o(446)]="0s",document[n(347)](n(349))[n(329)][n(322)]=n(309),$(o(376))[n(418)]({left:"0%"},1e4),$(o(389))[n(418)]({right:"0%"},1e4),setTimeout(()=>{const e=o,t=n;lore[t(399)]=e(452),$(t(395))[t(372)](3e3)},1e4),setTimeout(()=>{const e=n;$(e(395))[e(300)](3e3)},17e3),setTimeout(()=>{const e=n;lore[e(399)]=e(364),$(e(395))[e(372)](3e3)},2e4),setTimeout(()=>{const e=o,t=n;$(e(493))[t(300)](3e3)},27e3),setTimeout(init,3e4))}function _0x558c(){var e=["style","#CMTH","52%","Screams","1216328sjOnOb","#PMO","Sorry, but based on the information you gave us we can only file a report today","-15%","think something bad happened","shift","#Background","#JMFIB","969316SLkftM","body","uummmmmm I think I heard something next door","1986030JXklJU","#CMFI","#JMFI","68%","dude I’m genuinely scared","4056344DyrMlv","#PMS","PMT","The murderer got away because of you...","innerHTML","Background","none","3980FXdmcq","#BlackBackgroundOne","PMS","Logo","15309JFlItI","3HTDFnF","PMTE","#518","#JMTHB","#PMTEB","#CMFB","24%","fadeIn","3400796dReqjj","focus","1110ySHByK","Hey so ummmm I think I heard a scream","bro the scream wasn’t like a fall of the bed type of scream","JMTH","filter","#PMTB","Hey sooo um I think I heard a scream ","CMSE","documentElement","#CMSB","1554306IuPNrq","1688yNkFzj","key","766ptWKkk","27%","780216MpOpol","TextInput","AnswerB","play","Created by Nick and Dallas","73%","13%","#CMSE","value","#BlackBackgroundTwo","transitionDuration","#PMTE","innerHeight","getElementById","#PMEB","2572104cSPeYY","Units are on their way to your location, and they should arrive shortly","36%","#CMS","#PMN","requestFullscreen","JMF","30%","invert(100%)","#CMO","It's Midnight","#AnswerA","I heard running and a muffled shriek","#JMTB","#CMF","Origninal story by Edgar Allan Poe","cursor","#Loremessages","StartButton","reload","The murderer was caught because of you...","<br/> 12:10AM <br/> 911","1788tKVhjs","He is an old man in his 70’s, about 5’9","19010UDRXah","807chxVXm","ya that’s not normal","57%","PMN","69%","CMFI","This information you gave does not justify a police response or report today","27neXsUd","128529ryqEcr","weird pretty strange","JMT","#CMOB","AnswerA","click","fadeOut","#PME","Hello I think I heard a scream like 5 minutes ago","#PMFI","PMTH","Music","push","#PMTHB","that’s strange do you think I should call the police","49%","background","2bfJPsB","I believe it was some kind of assault","#Logo","#PMFB","28bpumDM","nah someone probably just fell off the bed","#JMOB","#PMNB","that’s really weird ummm should I call the police?","#CMTB","224709DykQkn","#TextInput","#AnswerB","#JMFB","-10%","Time","63%","the scream had a sense of fear in not like a fall of the bed","14300703KgdumR","#PMTH","8196VbujOV","80%","#PMT","#Iphone","disabled","Enter","animate","55132pdZRdK","I swear I heard some commotion and a scream next door"];return(_0x558c=function(){return e})()}function init(){const e=_0x7eece8,o=_0x325fea;document[o(347)](o(424))[o(329)][o(305)]=o(302),document[e(454)][o(329)][e(484)]=o(414),$(o(304))[o(418)]({left:"-15%"},5e3),$(o(365))[e(408)]({right:o(421)},5e3),setTimeout(()=>{const e=_0x5d6a,t=o;$(e(262))[t(372)](3e3),document[t(347)](t(422))[t(320)]()},4e3),setTimeout(TextAdvance,1e4)}function entertext(){const e=_0x7eece8,t=_0x325fea;TextEntered=event[e(414)],TextEntered==t(373)&&(document[t(347)](t(422))[t(368)]=t(299),TextValue=document[t(347)](t(422))[t(331)],$(t(360))[t(300)](1e3),""!==TextValue&&(Playername=TextValue,TextAdvance()))}function TextAdvance(){const u=_0x5d6a,s=_0x7eece8,r=_0x325fea;Stage+=1,1===Stage&&($(r(432))[r(418)]({top:r(390)}),WH=.13*window[r(387)]+30,$(r(354))[r(418)]({top:WH+"px"}),setTimeout(()=>{const e=r;$(e(394))[e(418)]({top:e(439)}),WH=.2*window[e(387)]+90,$(e(409))[e(418)]({top:WH+"px"})},4e3),setTimeout(()=>{const e=_0x4e55,t=r;$(t(386))[t(372)](3e3),$(e(403)).fadeIn(3e3)},6e3)),2===Stage&&($(r(386))[s(383)](1e3),$(r(382))[r(300)](1e3),$(r(343))[r(418)]({top:r(356)}),WH=.36*window[r(387)]+120,$(u(315))[s(408)]({top:WH+"px"}),setTimeout(TextAdvance,3e3)),3===Stage&&($(r(332))[r(418)]({top:r(351)}),WH=.57*window[s(510)]+60,$(s(487))[r(418)]({top:WH+"px"}),document[r(347)](u(226))[r(399)]=r(416),document[s(501)](r(426))[u(292)]=s(406),document[r(347)](r(441))[s(450)]=!1,document[r(347)](r(426))[r(368)]=!1,$(r(386))[r(372)](3e3),$(s(403))[r(372)](3e3)),4===Stage&&($(r(420))[r(418)]({top:r(296)}),WH=.68*window[r(387)]+60,$(r(391))[s(408)]({top:WH+"px"}),setTimeout(()=>{const n=u,a=s,c=r;WH=window[c(387)]+150,$(c(432))[a(408)]({top:-WH+"PX"}),$(c(354))[c(418)]({top:-WH+"PX"}),$(c(394))[a(408)]({top:-WH+"PX"}),$(a(437))[c(418)]({top:-WH+"PX"}),$(n(261))[a(408)]({top:-WH+"PX"}),$(a(483))[c(418)]({top:-WH+"PX"}),$(c(332))[a(408)]({top:-WH+"PX"}),$(a(487))[c(418)]({top:-WH+"PX"}),$(c(420))[c(418)]({top:-WH+"PX"}),$(c(391))[c(418)]({top:-WH+"PX"}),$(c(363))[c(418)]({top:a(459)}),WH=.13*window[n(337)]+90,$(c(323))[c(418)]({top:WH+"px"}),setTimeout(()=>{const e=n,t=a,o=c;document[o(347)](o(441))[o(399)]=o(435),document[o(347)](o(426))[o(399)]=o(375),document[o(347)](o(441))[o(368)]=!1,document[o(347)]("AnswerB")[o(368)]=!1,$(t(401))[e(307)](3e3),$(o(382))[o(372)](3e3)},3e3)},4e3)),5===Stage&&($(r(315))[r(418)]({top:r(339)}),WH=.3*window[r(387)]+120,$(r(357))[r(418)]({top:WH+"px"}),setTimeout(()=>{const e=s,t=r;$(t(326))[t(418)]({top:t(318)}),WH=.52*window[e(510)]+90,$(e(423))[t(418)]({top:WH+"px"})},4e3),setTimeout(()=>{const e=u,t=s,o=r;$(o(316))[t(408)]({top:o(359)}),WH=.69*window[o(387)]+60,$(t(419))[e(265)]({top:WH+"px"})},8e3),setTimeout(()=>{const e=u,t=s,o=r;$(o(392))[o(418)]({top:o(417)}),WH=.8*window[t(510)]+60,$(e(279))[o(418)]({top:WH+"px"})},12e3),setTimeout(()=>{const n=u,a=r;$(a(405))[a(300)](1e3),$(n(296))[a(418)]({left:"0%"},1e4),$(a(365))[a(418)]({right:"0%"},1e4),setTimeout(()=>{const e=n,t=_0x4e55,o=a;$(o(432))[o(300)](1e3),$(o(354))[o(300)](1e3),$(o(394))[e(228)](1e3),$(t(437))[o(300)](1e3),$(t(491))[o(300)](1e3),$(o(425))[o(300)](1e3),$(o(332))[o(300)](1e3),$(o(442))[o(300)](1e3),$(o(420))[o(300)](1e3),$(o(391))[t(383)](1e3),$(o(363))[o(300)](1e3),$(o(323))[o(300)](1e3),$(o(315))[o(300)](1e3),$(o(357))[o(300)](1e3),$(o(326))[o(300)](1e3),$(o(378))[o(300)](1e3),$(o(316))[o(300)](1e3),$(t(419))[o(300)](1e3),$(o(392))[o(300)](1e3),$(o(308))[o(300)](1e3),Transition()},1e4)},16e3)),6===Stage&&($(r(346))[r(418)]({top:r(390)}),WH=.13*window[r(387)]+60,$(r(342))[r(418)]({top:WH+"px"}),setTimeout(()=>{const n=r;document[n(347)](n(441))[n(399)]=n(406),document[n(347)](n(426))[n(399)]=n(428),setTimeout(()=>{const e=_0x5d6a,t=_0x4e55,o=n;document[o(347)](e(226))[o(368)]=!1,document[o(347)](t(425))[o(368)]=!1},3e3),$(n(386))[n(372)](3e3),$(n(382))[n(372)](3e3)},4e3)),7===Stage&&(document[s(501)](r(441))[r(368)]=!0,document[s(501)](r(426))[r(368)]=!0,setTimeout(()=>{const e=r;$(e(317))[e(418)]({top:e(407)}),WH=.24*window[e(387)]+90,$(e(440))[e(418)]({top:WH+"px"})},1e3),setTimeout(()=>{const e=s,t=r;$(t(381))[t(418)]({top:e(456)}),WH=.4*window.innerHeight+60,$(t(337))[t(418)]({top:WH+"px"})},7e3),setTimeout(()=>{const e=r;$(e(344))[e(418)]({top:e(318)}),WH=.52*window[e(387)]+60,$(e(358))[e(418)]({top:WH+"px"})},13e3),setTimeout(()=>{const e=s,t=r;$(e(421))[t(418)]({top:t(335)}),WH=.63*window[t(387)]+60,$(t(396))[t(418)]({top:WH+"px"})},18e3),setTimeout(()=>{const e=u,t=s,o=r;document[o(347)](o(441))[o(399)]=e(240),document[t(501)](o(426))[o(399)]=e(352),document[t(501)](o(441))[o(368)]=o(369),document[o(347)](o(426))[o(368)]=o(369),$(o(386))[o(372)](3e3),$(o(382))[o(372)](3e3)},21e3)),8===Stage&&(setTimeout(()=>{const e=s,t=r;$(t(333))[t(418)]({top:t(313)}),WH=.75*window[t(387)]+90,$(t(376))[e(408)]({top:WH+"px"})},1e3),setTimeout(()=>{const e=u,t=s,o=r;WH=window[t(510)]+150,$(o(346))[o(418)]({top:-WH+"PX"}),$(t(441))[t(408)]({top:-WH+"PX"}),$(t(381))[o(418)]({top:-WH+"PX"}),$(o(440))[t(408)]({top:-WH+"PX"}),$(t(397))[o(418)]({top:-WH+"PX"}),$(t(445))[o(418)]({top:-WH+"PX"}),$(t(433))[t(408)]({top:-WH+"PX"}),$(o(358))[o(418)]({top:-WH+"PX"}),$(o(419))[t(408)]({top:-WH+"PX"}),$(t(428))[o(418)]({top:-WH+"PX"}),$(t(370))[e(265)]({top:-WH+"PX"}),$(o(376))[o(418)]({top:-WH+"PX"})},6e3),setTimeout(()=>{const o=s,n=r;$(n(404))[o(408)]({top:n(390)}),WH=.13*window[n(387)]+60,$(n(401))[n(418)]({top:WH+"px"}),setTimeout(()=>{const e=o,t=n;$(t(360))[t(372)](3e3),document[e(501)](t(422))[t(320)]()},2e3)},8e3)),9===Stage&&(document[r(347)](r(434))[r(399)]=r(411)+Playername,setTimeout(()=>{const e=s,t=r;$(t(393))[t(418)]({top:e(355)}),WH=.27*window[t(387)]+120,$(t(341))[t(418)]({top:WH+"px"})},3e3),setTimeout(()=>{const e=u,t=s,o=r;document[e(338)]("AnswerA")[t(494)]=t(422),document[o(347)](o(426))[t(494)]=t(372),$(o(386))[o(372)](3e3),$(o(382))[o(372)](3e3)},5500)),10===Stage&&(setTimeout(()=>{const e=r;$(e(367))[e(418)]({top:e(303)}),WH=.49*window[e(387)]+30,$(e(413))[e(418)]({top:WH+"px"})},1e3),setTimeout(()=>{const e=s,t=r;$(e(371))[t(418)]({top:t(388)}),WH=.56*window[e(510)]+90,$(e(384))[t(418)]({top:WH+"px"})},7e3),setTimeout(()=>{const e=s,t=r;document[t(347)](t(441))[t(399)]=t(314),document[t(347)](t(426))[e(494)]=t(345),$(e(401))[t(372)](3e3),$(t(382))[t(372)](3e3)},1e4)),11===Stage&&(setTimeout(()=>{const e=u,t=s,o=r;$(o(307))[t(408)]({top:o(430)}),WH=.73*window[o(387)]+90,$(e(304))[o(418)]({top:WH+"px"})},3e3),setTimeout(()=>{const e=u,t=s,o=r;$(t(357))[o(418)]({top:-WH+"PX"}),$(o(401))[t(408)]({top:-WH+"PX"}),$(o(393))[t(408)]({top:-WH+"PX"}),$(o(341))[o(418)]({top:-WH+"PX"}),$(o(367))[o(418)]({top:-WH+"PX"}),$(o(413))[t(408)]({top:-WH+"PX"}),$(o(352))[e(265)]({top:-WH+"PX"}),$(o(423))[t(408)]({top:-WH+"PX"}),$(o(307))[t(408)]({top:-WH+"PX"}),$(e(304))[t(408)]({top:-WH+"PX"})},6e3),setTimeout(()=>{const e=u,t=s,o=r;3!==Score&&4!==Score||(document[o(347)](t(462))[o(399)]=t(496),lore[o(399)]=o(311)),2===Score&&(document[o(347)](t(462))[t(494)]=t(498),lore[t(494)]=e(291)),1!==Score&&0!==Score||(document[o(347)](e(317))[o(399)]=t(362),lore[t(494)]=t(402)),$(o(325))[o(418)]({top:o(390)}),WH=.13*window[o(387)]+150,$(o(377))[o(418)]({top:WH+"px"})},1e4),setTimeout(()=>{end()},15e3))}function TextAdvanceA(){const e=_0x5d6a,t=_0x7eece8,o=_0x325fea;0==Running&&(Running=!0,1===Stage&&(document[t(501)](o(340))[o(399)]=o(312),setTimeout(TextAdvanceA,4e3)),2===Stage&&(document[e(338)](o(327))[o(399)]=o(334)),3===Stage&&(document[o(347)](o(441))[o(368)]=!0,document[o(347)](o(426)).disabled=!0,$(t(401))[o(300)](1e3),$(e(251))[o(300)](1e3),document[t(501)](o(350))[o(399)]=o(416),document[o(347)](o(374))[o(399)]=o(415)),4===Stage&&(document[o(347)](o(295))[t(494)]=o(435),document[o(347)](o(328))[o(399)]=o(297),document[o(347)](t(461))[o(368)]=!0,document[o(347)](o(426))[t(450)]=!0,$(o(386))[o(300)](1e3),$(o(382))[o(300)](1e3)),6===Stage&&(document[o(347)](o(441))[o(368)]=!0,document[e(338)](o(426))[o(368)]=!0,$(o(386))[o(300)](1e3),$(e(251))[t(383)](1e3),document[o(347)](o(324))[o(399)]=o(330),Score+=1),7===Stage&&(document[o(347)](o(441))[o(368)]=!0,document[o(347)](o(426))[e(263)]=!0,document[o(347)](o(370))[o(399)]=o(443),$(e(351))[o(300)](1e3),$(o(382))[o(300)](1e3)),9===Stage&&($(o(386))[o(300)](1e3),$(o(382))[o(300)](1e3),document[o(347)](o(319))[o(399)]=o(400),Score+=1),10===Stage&&($(t(401))[o(300)](1e3),$(o(382))[o(300)](1e3),document[e(338)](o(361))[o(399)]=t(405)),TextAdvance(),setTimeout(()=>{Running=!1},6e3))}function TextAdvanceB(){const e=_0x5d6a,t=_0x7eece8,o=_0x325fea;0==Running&&(Running=!0,1===Stage&&(document[o(347)](o(340))[o(399)]=o(362),setTimeout(TextAdvanceB,4e3)),2===Stage&&(document[o(347)](o(327))[o(399)]=o(355)),3===Stage&&(document[o(347)](o(441))[o(368)]=!0,document[o(347)](t(425))[t(450)]=!0,$(o(386))[o(300)](1e3),$(o(382))[o(300)](1e3),document[o(347)](o(350))[e(292)]=o(384),document[o(347)](o(374))[o(399)]=o(310)),4===Stage&&(document[t(501)](o(295))[o(399)]=o(375),document[o(347)](o(328))[o(399)]=t(458),document[o(347)](o(441))[o(368)]=!0,document[o(347)](o(426))[t(450)]=!0,$(e(351))[o(300)](1e3),$(o(382))[t(383)](1e3)),6===Stage&&(document[o(347)](t(461))[o(368)]=!0,document[o(347)](o(426))[o(368)]=!0,$(o(386))[o(300)](1e3),$(o(382))[t(383)](1e3),document[o(347)](t(369))[t(494)]=o(436)),7===Stage&&(document[o(347)](o(441))[t(450)]=!0,document[o(347)](o(426))[o(368)]=!0,document[o(347)](o(370))[t(494)]=o(380),$(o(386))[o(300)](1e3),$(o(382))[o(300)](1e3),Score+=1),9===Stage&&($(o(386))[o(300)](1e3),$(o(382))[o(300)](1e3),document[o(347)](o(319))[t(494)]=o(336)),10===Stage&&($(o(386))[o(300)](1e3),$(o(382))[o(300)](1e3),document[o(347)](o(361))[o(399)]=o(345),Score+=1),TextAdvance(),setTimeout(()=>{Running=!1},6e3))}function _0x4e55(e,t){var o=_0x3833();return(_0x4e55=function(e,t){return o[e-=351]})(e,t)}function _0x3a70(e,t){var o=_0x42a2();return(_0x3a70=function(e,t){return o[e-=295]})(e,t)}function Transition(){const o=_0x7eece8,c=_0x325fea;document[c(347)](o(396))[c(399)]=c(371),$(o(376))[c(418)]({left:"0%"},1e4),$(c(365))[o(408)]({right:"0%"},1e4),setTimeout(()=>{const n=o,a=c;lore[a(399)]=n(476),$(a(395))[a(372)](3e3),$(a(395))[n(383)](3e3),setTimeout(()=>{const e=_0x5d6a,t=n,o=a;lore[e(292)]=o(433),$(o(395))[t(387)](3e3),$(t(493))[o(300)](3e3)},7e3)},11e3),setTimeout(()=>{const e=o,t=c;$(t(304))[t(418)]({left:t(421)},5e3),$(e(389))[t(418)]({right:t(421)},5e3),$(t(321))[t(372)](5e3),setTimeout(TextAdvance,5e3)},25e3)}function _0x42a2(){const e=_0x5d6a,t=_0x7eece8;var o=[t(353),t(448),t(415),e(228),e(222),e(294),t(391),t(376),t(412),t(411),t(394),e(279),t(430),t(380),t(386),t(438),t(424),e(212),t(495),t(354),t(381),e(270),t(439),t(503),t(352),t(488),t(500),e(297),t(511),t(436),t(442),t(486),t(404),t(466),t(400),t(481),t(370),t(361),e(255),t(372),e(248),t(473),t(492),t(426),t(443),t(441),e(261),t(433),t(390),e(349),t(501),"7448120MKZjkz",t(420),t(468),e(216),t(371),e(329),t(507),t(513),t(398),t(431),"#PMSEB",e(218),t(444),t(351),t(417),t(469),t(465),t(389),e(243),t(464),e(263),"false","PME",t(477),t(387),e(264),t(440),t(474),t(429),"#CMSEB",t(423),e(340),t(479),t(397),t(403),t(364),t(406),t(356),e(351),t(510),t(395),t(484),e(331),e(235),t(506),t(485),"#JMO",t(493),t(428),t(432),t(471),t(494),t(422),e(305),t(388),t(453),e(354),t(393),t(360),t(367),t(366),t(437),t(418),t(497),t(435),t(409),t(410),e(244),t(509),t(358),t(408),t(421),t(382),t(365),t(407),t(384),t(457),t(483),t(425),t(512),t(363),t(451),t(470),t(378),t(490),t(480),e(219),t(359),t(392),e(266),t(478),"20%","#PMSB",t(461),e(353),t(502),t(499),t(482),t(377),t(385)];return(_0x42a2=function(){return o})()}function end(){const e=_0x7eece8;$(e(393))[e(383)](5e3),setTimeout(()=>{const n=_0x5d6a,a=e,c=_0x3a70;$(c(304))[c(418)]({left:"0%"},1e4),$(a(389))[n(265)]({right:"0%"},1e4),setTimeout(()=>{const e=a,t=c;$(t(395))[e(387)](3e3),$(e(493))[t(300)](3e3)},1e4),setTimeout(()=>{const e=a,t=c;lore[e(494)]=t(353),$(t(395))[t(372)](3e3),$(t(395))[t(300)](3e3)},17e3),setTimeout(()=>{const e=a,t=c;lore[t(399)]=t(438),$(t(395))[t(372)](3e3),$(e(493))[t(300)](3e3)},14e3),setTimeout(()=>{const e=n,t=a,o=c;lore[e(292)]=t(505),$(t(493))[o(372)](3e3),$(o(395))[o(300)](3e3)},21e3),setTimeout(()=>{const e=a;location[e(416)]()},3e4)},5e3)}function _0x5d6a(e,t){var o=_0x558c();return(_0x5d6a=function(e,t){return o[e-=208]})(e,t)}$(document)[_0x7eece8(489)](()=>{initmenu()}),$(_0x325fea(444))[_0x325fea(431)](()=>{StartGame()});
+	
+
+	
+	
+	
+</script>
+</body>
+</html>
